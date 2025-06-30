@@ -5,10 +5,10 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertTrue;
 
-public class LoginTest extends BaseTest{
+public class LoginTest extends BaseTest {
 
     @Test
-    public void checkLoginWithoutPassword(){
+    public void checkLoginWithoutPassword() {
         loginPage.open();
         loginPage.login("standard_user", "");
         Assert.assertEquals(loginPage.getErrorMessage(),
@@ -17,7 +17,7 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void checkLoginWithoutUsername(){
+    public void checkLoginWithoutUsername() {
         loginPage.open();
         loginPage.login("", "secret_sauce");
         Assert.assertEquals(loginPage.getErrorMessage(),
@@ -26,7 +26,7 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void checkLoginWithoutNegativeValue(){
+    public void checkLoginWithoutNegativeValue() {
         loginPage.open();
         loginPage.login("test", "test");
         Assert.assertEquals(loginPage.getErrorMessage(),
@@ -35,7 +35,7 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void checkLogin(){
+    public void checkLogin() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         assertTrue(productsPage.isPageOpened());
