@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ProductsPage extends BasePage{
+public class ProductsPage extends BasePage {
 
     private final By TITLE = By.className("title");
 
@@ -11,11 +11,11 @@ public class ProductsPage extends BasePage{
         super(driver);
     }
 
-    public void open(){
+    public void open() {
         driver.get(BASE_URL + "/inventory.html");
     }
 
-    public boolean isPageOpened(){
+    public boolean isPageOpened() {
         return driver.findElement(TITLE).isDisplayed();
     }
 }
