@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.CartPage;
@@ -12,6 +14,8 @@ import pages.ProductsPage;
 
 import java.time.Duration;
 import java.util.HashMap;
+
+import static tests.AllureUtils.takeScreenshot;
 
 @Listeners(TestListener.class)
 public class BaseTest {
@@ -22,8 +26,8 @@ public class BaseTest {
     CartPage cartPage;
 
     @Parameters({"browser"})
-    @BeforeMethod(alwaysRun = true)
-    public void setup(@Optional("chrome") String browser) {
+    @BeforeMethod(alwaysRun = true, description = "Настройка браузера")
+    public void setup(@Optional("chrome") String browser, ITestContext iTestContext) {
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             HashMap<String, Object> chromePrefs = new HashMap<>();
@@ -40,6 +44,7 @@ public class BaseTest {
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        iTestContext.setAttribute("driver", driver);
         softAssert = new SoftAssert();
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
@@ -48,9 +53,11 @@ public class BaseTest {
         cartPage.login("standard_user", "secret_sauce");
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void tearDown(){
+    @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
+    public void tearDown(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()){
+            takeScreenshot(driver);
+        }
         driver.quit();
-        softAssert.assertAll();
     }
 }
