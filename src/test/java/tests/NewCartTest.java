@@ -5,7 +5,9 @@ import org.testng.annotations.Test;
 
 public class NewCartTest extends BaseTest {
 
-    @Test
+    @Test(priority = 1,
+            testName = "Тест добавления товара в корзину",
+            description = "Проверка добавления товара в корзину")
     public void checkAddToCart() {
         cartPage.addToCartBackpack();
         cartPage.openCart();
@@ -14,7 +16,9 @@ public class NewCartTest extends BaseTest {
         softAssert.assertEquals(name, "Sauce Labs Backpack", "Ошибка: товар в корзину не был добавлен");
     }
 
-    @Test
+    @Test(priority = 2,
+            testName = "Тест удаления товара из корзины",
+            description = "Проверка удаления товара из корзины")
     public void checkRemove() {
         cartPage.addToCartBackpack();
         cartPage.addToCartOnesie();
@@ -25,7 +29,9 @@ public class NewCartTest extends BaseTest {
         softAssert.assertEquals(counter, "1", "Ошибка: товар из корзины не удален");
     }
 
-    @Test
+    @Test(priority = 3,
+            testName = "Тест счетчика товаров в корзине",
+            description = "Проверка счетчика товаров в корзине")
     public void checkCounterDisplay() {
         cartPage.addToCartBackpack();
         cartPage.addToCartOnesie();
@@ -38,7 +44,9 @@ public class NewCartTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(priority = 3,
+            testName = "Тест перехода к оформлению заказа",
+            description = "Проверка перехода к оформлению заказа")
     public void checkCheckout() {
         cartPage.addToCartBackpack();
         cartPage.openCart();
@@ -48,7 +56,9 @@ public class NewCartTest extends BaseTest {
         softAssert.assertEquals(title, "Checkout: Your Information", "Ошибка: не был осуществлен переход на страницу оформления заказа");
     }
 
-    @Test
+    @Test(priority = 4,
+            testName = "Тест перехода на страницу продолжения покупок",
+            description = "Проверка перехода на страницу продолжения покупок")
     public void checkCountinueShopping() {
         cartPage.addToCartBackpack();
         cartPage.openCart();
