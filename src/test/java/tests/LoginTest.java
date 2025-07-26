@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -11,6 +12,15 @@ public class LoginTest extends BaseTest {
     @Test(priority = 2,
             testName = "Негативный тест без пароля",
             description = "Проверка входа в систему без пароля")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Bulycheva D.A.")
+    @Link("https://www.saucedemo.com/")
+    @Epic("Login Page")
+    @Feature("Log in")
+    @Story("Login Without Password")
+    @TmsLink("ITM-4")
+    @Issue("ITM-4-1")
+    @Description("Проверка, что пользователь не может войти в магазин, когда вводит пустой пароль")
     public void checkLoginWithoutPassword() {
         loginPage.open();
         loginPage.login("standard_user", "");
@@ -22,6 +32,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 2,
             testName = "Негативный тест без логина",
             description = "Проверка входа в систему без логина")
+    @Description("Проверка, что пользователь не может войти в магазин, когда вводит пустой логин")
     public void checkLoginWithoutUsername() {
         loginPage.open();
         loginPage.login("", "secret_sauce");
@@ -33,6 +44,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 2,
             testName = "Негативный тест с невалидными данными",
             description = "Проверка входа в систему с невалидными данными")
+    @Description("Проверка, что пользователь не может войти в магазин, когда вводит невалидные данные")
     public void checkLoginWithNegativeValue() {
         loginPage.open();
         loginPage.login("test", "test");
@@ -44,6 +56,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 1,
             testName = "Позитивный тест",
             description = "Проверка входа в систему с валидными данными")
+    @Description("Проверка, что пользователь может войти в магазин, когда вводит валидные данные")
     public void checkLogin() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -63,6 +76,7 @@ public class LoginTest extends BaseTest {
             priority = 3,
             testName = "Негативный тест с разными невалидными данными",
             description = "Проверка входа в систему с разными невалидными данными")
+    @Description("Проверка, что пользователь не может войти в магазин, когда вводит разные невалидные данные")
     public void checkLoginWithNegativeValue1(String user, String password, String expectedMessage) {
         loginPage.open();
         loginPage.login(user, password);
