@@ -16,7 +16,7 @@ public class FailedTest extends BaseTest {
         cartPage.removeBackpack();
         cartPage.countinueShopping();
         Assert.assertEquals(cartPage.checkCountinueShopping(),
-                "Pducts",
+                "Products",
                 "Не был осуществлен переход к продолжению покупок");
     }
 }
