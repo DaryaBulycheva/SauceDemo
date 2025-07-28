@@ -23,7 +23,7 @@ public class LoginTest extends BaseTest {
     @Description("Проверка, что пользователь не может войти в магазин, когда вводит пустой пароль")
     public void checkLoginWithoutPassword() {
         loginPage.open();
-        loginPage.login("standard_user", "");
+        loginPage.login(user, "");
         Assert.assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Password is required",
                 "Сообщение не соответствует");
@@ -35,7 +35,7 @@ public class LoginTest extends BaseTest {
     @Description("Проверка, что пользователь не может войти в магазин, когда вводит пустой логин")
     public void checkLoginWithoutUsername() {
         loginPage.open();
-        loginPage.login("", "secret_sauce");
+        loginPage.login("", password);
         Assert.assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username is required",
                 "Сообщение не соответствует");
@@ -59,7 +59,7 @@ public class LoginTest extends BaseTest {
     @Description("Проверка, что пользователь может войти в магазин, когда вводит валидные данные")
     public void checkLogin() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(user, password);
         assertTrue(productsPage.isPageOpened());
     }
 
