@@ -56,12 +56,11 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
     public void tearDown(ITestResult result) {
-        if (driver != null){
-            driver.quit();
-        }
         if (ITestResult.FAILURE == result.getStatus()){
             takeScreenshot(driver);
         }
-        driver.quit();
+        if (driver != null){
+            driver.quit();
+        }
     }
 }
