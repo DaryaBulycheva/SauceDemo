@@ -48,15 +48,12 @@ public class BaseTest {
             options.addArguments("--headless");
             driver = new EdgeDriver(options);
         }
-
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         iTestContext.setAttribute("driver", driver);
         softAssert = new SoftAssert();
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);
-        cartPage.open();
-        cartPage.login("standard_user", "secret_sauce");
     }
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")

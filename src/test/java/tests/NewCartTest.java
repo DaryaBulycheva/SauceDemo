@@ -1,7 +1,6 @@
 package tests;
 
 import jdk.jfr.Description;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 public class NewCartTest extends BaseTest {
@@ -11,10 +10,12 @@ public class NewCartTest extends BaseTest {
             description = "Проверка добавления товара в корзину")
     @Description("Проверка, что товар в корзину добавился")
     public void checkAddToCart() {
+        cartPage.open();
+        cartPage.login("standard_user", "secret_sauce");
         cartPage.addToCartBackpack();
         cartPage.openCart();
         cartPage.isPageOpened();
-        String name = driver.findElement(By.xpath("//div[@class='inventory_item_name']")).getText();
+        String name = cartPage.findName();
         softAssert.assertEquals(name, "Sauce Labs Backpack", "Ошибка: товар в корзину не был добавлен");
     }
 
@@ -23,12 +24,14 @@ public class NewCartTest extends BaseTest {
             description = "Проверка удаления товара из корзины")
     @Description("Проверка, что товар из корзины удалился")
     public void checkRemove() {
+        cartPage.open();
+        cartPage.login("standard_user", "secret_sauce");
         cartPage.addToCartBackpack();
         cartPage.addToCartOnesie();
         cartPage.openCart();
         cartPage.isPageOpened();
         cartPage.removeBackpack();
-        String counter = driver.findElement(By.className("shopping_cart_badge")).getText();
+        String counter = cartPage.findCounter();
         softAssert.assertEquals(counter, "1", "Ошибка: товар из корзины не удален");
     }
 
@@ -37,13 +40,15 @@ public class NewCartTest extends BaseTest {
             description = "Проверка счетчика товаров в корзине")
     @Description("Проверка, что счетчик товаров в корзине считает корректно")
     public void checkCounterDisplay() {
+        cartPage.open();
+        cartPage.login("standard_user", "secret_sauce");
         cartPage.addToCartBackpack();
         cartPage.addToCartOnesie();
         cartPage.openCart();
         cartPage.isPageOpened();
         cartPage.displayCounter();
         cartPage.removeBackpack();
-        String counter = driver.findElement(By.className("shopping_cart_badge")).getText();
+        String counter = cartPage.findCounter();
         softAssert.assertEquals(counter, "1", "Ошибка: счетчик считает некорректно/товар не был удален");
     }
 
@@ -52,11 +57,13 @@ public class NewCartTest extends BaseTest {
             description = "Проверка перехода к оформлению заказа")
     @Description("Проверка, что осуществляется переход к оформлению заказа")
     public void checkCheckout() {
+        cartPage.open();
+        cartPage.login("standard_user", "secret_sauce");
         cartPage.addToCartBackpack();
         cartPage.openCart();
         cartPage.isPageOpened();
         cartPage.checkout();
-        String title = driver.findElement(By.className("title")).getText();
+        String title = cartPage.findTitle();
         softAssert.assertEquals(title, "Checkout: Your Information", "Ошибка: не был осуществлен переход на страницу оформления заказа");
     }
 
@@ -65,11 +72,13 @@ public class NewCartTest extends BaseTest {
             description = "Проверка перехода на страницу продолжения покупок")
     @Description("Проверка, что осуществляется переход на страницу продолжения покупок")
     public void checkCountinueShopping() {
+        cartPage.open();
+        cartPage.login("standard_user", "secret_sauce");
         cartPage.addToCartBackpack();
         cartPage.openCart();
         cartPage.isPageOpened();
         cartPage.countinueShopping();
-        String title = driver.findElement(By.className("title")).getText();
+        String title = cartPage.findTitle();
         softAssert.assertEquals(title, "Products", "Ошибка: не был осуществлен переход на страницу продолжения покупок");
     }
 }
